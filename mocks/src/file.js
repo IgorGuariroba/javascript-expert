@@ -28,13 +28,25 @@ class File {
                 valid: false
             }
         }
+
+        const isContentLengthAccepted = (
+            fileWithoutHeader.length > 0 &&
+                fileWithoutHeader.length <=options.maxLines
+        )
+
+        if (!isContentLengthAccepted) {
+            return {
+                error: error.FILE_LENGTH_ERROR_MESSAGE,
+                valid: false
+            }
+        }
     }
 }
 
 (async () => {
     // const result = await File.csvToJson('./../mocks/threeltems-valid.csv')
+    const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
     // const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
-    // const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
-    const result = await File.csvToJson('./../mocks/invalid-header.csv')
+    // const result = await File.csvToJson('./../mocks/invalid-header.csv')
     console.log('result', result)
 })();
