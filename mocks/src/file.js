@@ -7,12 +7,12 @@ class File {
     }
 
     static async getFileContent(filePath) {
-        const filename = join(_dirname, filePath)
+        const filename = join(__dirname, filePath)
         return (await readFile(filename)).toString("utf8")
     }
 }
 
 (async () =>{
-    const result = await File.csvToJson('./../mocks/threeItems-valid.csv')
+    const result = await File.csvToJson('./../mocks/threeltems-valid.csv')
     console.log('result',result)
 })();
