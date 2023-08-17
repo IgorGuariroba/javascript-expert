@@ -40,6 +40,8 @@ class File {
                 valid: false
             }
         }
+
+        return {valid: true}
     }
 }
 
