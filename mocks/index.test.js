@@ -1,5 +1,5 @@
-const {error} = require('./mocks/src/constants')
-const File = require('./mocks/src/file')
+const {error} = require('./src/constants')
+const File = require('./src/file')
 const {rejects, deepStrictEqual} = require('assert');
 
 
