@@ -15,12 +15,11 @@ class File {
     }
 
     static async getFileContent(filePath) {
-        const filename = join(__dirname, filePath)
-        return (await readFile(filename)).toString("utf8")
+        return (await readFile(filePath)).toString("utf8")
     }
 
     static isValid(csvString, options = DEFAULT_OPTIONS) {
-        const [header, ...fileWithoutHeader] = csvString.split('\n')
+        let [header, ...fileWithoutHeader] = csvString.split('\n')
         const isHeaderValid = header === options.fields.join(',')
         if (!isHeaderValid) {
             return {
@@ -29,9 +28,11 @@ class File {
             }
         }
 
+        fileWithoutHeader = fileWithoutHeader.filter(line => line.trim() !== '')
+
         const isContentLengthAccepted = (
             fileWithoutHeader.length > 0 &&
-                fileWithoutHeader.length <=options.maxLines
+            fileWithoutHeader.length <= options.maxLines
         )
 
         if (!isContentLengthAccepted) {
@@ -45,10 +46,12 @@ class File {
     }
 }
 
-(async () => {
-    // const result = await File.csvToJson('./../mocks/threeltems-valid.csv')
-    const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
-    // const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
-    // const result = await File.csvToJson('./../mocks/invalid-header.csv')
-    console.log('result', result)
-})();
+// (async () => {
+//     // const result = await File.csvToJson('./../mocks/threeltems-valid.csv')
+//     const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
+//     // const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
+//     // const result = await File.csvToJson('./../mocks/invalid-header.csv')
+//     console.log('result', result)
+// })();
+
+module.exports = File
