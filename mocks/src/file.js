@@ -1,5 +1,5 @@
 const {readFile} = require('fs/promises')
-const {join} = require('path')
+const User = require('./user')
 const {error} = require('./constants')
 const DEFAULT_OPTIONS = {
     maxLines: 3,
@@ -11,7 +11,8 @@ class File {
         const content = await File.getFileContent(filePath)
         const validation = File.isValid(content)
         if (!validation.valid) throw new Error(validation.error)
-        return content
+
+        return File.parseCSVToJSON(content)
     }
 
     static async getFileContent(filePath) {
@@ -44,14 +45,20 @@ class File {
 
         return {valid: true}
     }
-}
 
-// (async () => {
-//     // const result = await File.csvToJson('./../mocks/threeltems-valid.csv')
-//     const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
-//     // const result = await File.csvToJson('./../mocks/fourltems-valid.csv')
-//     // const result = await File.csvToJson('./../mocks/invalid-header.csv')
-//     console.log('result', result)
-// })();
+    static parseCSVToJSON(csvString) {
+        const lines = csvString.split('\n')
+        const firstLine = lines.shift()
+        const header = firstLine.split(',')
+        return lines.map(line => {
+            const columns = line.split(',')
+            let user = {}
+            for (const index in columns) {
+                user[header[index]] = columns[index]
+            }
+            return new User(user)
+        })
+    }
+}
 
 module.exports = File
