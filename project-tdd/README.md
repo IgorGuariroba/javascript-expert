@@ -5,7 +5,7 @@
 As a system user
 In order to get an available car in a specific category
 Given a car category containing 3 different cars
-When I check if there's a car avaable
+When I check if there's a car available
 Then it should choose randomly a car from the category chosen
 
 ## Use Case 02

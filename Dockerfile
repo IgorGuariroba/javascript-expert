@@ -7,4 +7,7 @@ WORKDIR /usr/src/app
 # Copia os arquivos desejados do seu projeto para o diretório atual no container
 COPY . .
 
+#Update npm to the latest version
+RUN npm install -g npm@latest
+
 CMD ["bash", "-c", "while true; do echo Docker is running...; sleep 100; done"]
