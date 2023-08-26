@@ -53,14 +53,25 @@ describe('CarService suite tests', () => {
         expect(result).to.be.equal(expected)
     });
 
-    // it('given a carCategory it should return an available car', async () => {
-    //     const car = mocks.validCar
-    //     const carCategory = Object.create(mocks.validCarCategory)
-    //     carCategory.ids = [car.id]
-    //
-    //     const result = await carService.getAvailableCar(carCategory)
-    //     const expected = car
-    //
-    //     expect(result).to.be.deep.equal(expected)
-    // });
+    it('given a carCategory it should return an available car', async () => {
+        const car = mocks.validCar
+        const carCategory = Object.create(mocks.validCarCategory)
+        carCategory.carIds = [car.id]
+
+        sandbox.stub(
+            carService.carRepository,
+            carService.carRepository.find.name
+        ).returns(car)
+
+        sandbox.spy(
+            carService,
+            carService.chooseRandomCar.name
+        )
+
+        const result = await carService.getAvailableCar(carCategory)
+
+        expect(carService.chooseRandomCar.calledOnce).to.be.ok
+        expect(carService.carRepository.find.calledWithExactly(car.id)).to.be.ok
+        expect(result).to.be.deep.equal(car)
+    });
 })
