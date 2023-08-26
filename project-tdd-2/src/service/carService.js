@@ -1,4 +1,5 @@
 const BaseRepository = require('./../repository/base/baseRepository')
+const {n} = require("sinon/lib/sinon/spy-formatters");
 
 class CarService {
 
@@ -7,8 +8,21 @@ class CarService {
         this.carRepository = new BaseRepository({file: cars})
     }
 
-    test() {
-        return this.carRepository.find()
+    async getAvailableCar(carCategory) {
+        return null
+    }
+
+    getRandomPositionFromArray(list) {
+        const listLength = list.length
+        return Math.floor(
+            Math.random() * (listLength)
+        )
+
+    }
+
+    chooseRandomCar(carCategory) {
+        const randomCarIndex = this.getRandomPositionFromArray(carCategory.carIds)
+        return carCategory.carIds[randomCarIndex];
     }
 }
 
