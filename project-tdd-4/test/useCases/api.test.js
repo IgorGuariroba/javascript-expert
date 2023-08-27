@@ -1,15 +1,17 @@
 const {describe, it} = require('mocha')
 const request = require('supertest')
-const app = require('./api')
+const app = require('./../../api')
 const assert = require("assert");
 
 describe('API Suite test', () => {
-    describe('/contatos', () => {
+    describe('/carro', () => {
         it('should request the contact page and return HTTP Status 200', async () => {
+
+
             const response = await request(app)
-                .get('/contatos')
+                .get('/carro')
                 .expect(200)
-            assert.deepStrictEqual(response.text, 'contact us page')
+            assert.deepStrictEqual(response.text, 'carro')
         });
     })
 
