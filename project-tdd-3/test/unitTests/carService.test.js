@@ -5,7 +5,6 @@ const Transaction = require('./../../src/entities/transaction')
 const {join} = require('path')
 const {expect} = require('chai')
 const sinon = require('sinon')
-const {ne} = require("faker/lib/locales");
 
 const carDatabase = join(__dirname, './../../database', "car.json")
 
